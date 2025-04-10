@@ -1,0 +1,401 @@
+{
+	"info": {
+		"_postman_id": "1a2b8d22-ae3f-4fa0-8845-a7062964f530",
+		"name": "SKY World",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9348565"
+	},
+	"item": [
+		{
+			"name": "questions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `\r",
+							"<style type=\"text/css\">\r",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+							"    .tftable tr {background-color:#ffffff;}\r",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+							"    .tftable tr:hover {background-color:#e0ffff;}\r",
+							"</style>\r",
+							"\r",
+							"<table class=\"tftable\" border=\"1\">\r",
+							"    <tr>\r",
+							"        <th>Question ID</th>\r",
+							"        <th>Name</th>\r",
+							"        <th>Text</th>\r",
+							"        <th>Type</th>\r",
+							"        <th>Required</th>\r",
+							"        <th>Description</th>\r",
+							"        <th>Multiple</th>\r",
+							"        <th>Format</th>\r",
+							"        <th>Max File Size</th>\r",
+							"        <th>Max File Size Unit</th>\r",
+							"    </tr>\r",
+							"    \r",
+							"    {{#each response}}\r",
+							"        <tr>\r",
+							"            <td>{{question_id}}</td>\r",
+							"            <td>{{name}}</td>\r",
+							"            <td>{{text}}</td>\r",
+							"            <td>{{type}}</td>\r",
+							"            <td>{{required}}</td>\r",
+							"            <td>{{description}}</td>\r",
+							"            <td>{{multiple}}</td>\r",
+							"            <td>{{format}}</td>\r",
+							"            <td>{{max_file_size}}</td>\r",
+							"            <td>{{max_file_size_unit}}</td>\r",
+							"        </tr>\r",
+							"    {{/each}}\r",
+							"</table>\r",
+							"`;\r",
+							"\r",
+							"function constructVisualizerPayload() {\r",
+							"    return {response: pm.response.json()}\r",
+							"}\r",
+							"\r",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/questions/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"questions",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://13tracso.pythonanywhere.com/api/questions/",
+							"protocol": "https",
+							"host": [
+								"13tracso",
+								"pythonanywhere",
+								"com"
+							],
+							"path": [
+								"api",
+								"questions",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "xml",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Thu, 10 Apr 2025 12:28:23 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/xml"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "X-Clacks-Overhead",
+							"value": "GNU Terry Pratchett"
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "Server",
+							"value": "PythonAnywhere"
+						}
+					],
+					"cookie": [],
+					"body": "<?xml version=\"1.0\" ?>\n<questions>\n    <question name=\"full_name\" type=\"short_text\" required=\"yes\">\n        <text>What is your full name?</text>\n        <description>[Surname] [First Name] [Other Names]</description>\n    </question>\n    <question name=\"gender\" type=\"choice\" required=\"yes\">\n        <text>What is your gender?</text>\n        <description/>\n        <options multiple=\"no\">\n            <option value=\"Male\">Male</option>\n            <option value=\"Female\">Female</option>\n            <option value=\"Other\">Other</option>\n        </options>\n    </question>\n    <question name=\"programming_stack\" type=\"choice\" required=\"yes\">\n        <text>What programming stack are you familiar with?</text>\n        <description>You can select multiple</description>\n        <options multiple=\"yes\">\n            <option value=\"REACT\">REACT</option>\n            <option value=\"ANGULAR\">ANGULAR</option>\n            <option value=\"VUE\">VUE</option>\n        </options>\n    </question>\n    <question name=\"email\" type=\"short_text\" required=\"yes\">\n        <text>Your email address please?</text>\n        <description>example@example.com</description>\n    </question>\n    <question name=\"certificates\" type=\"file\" required=\"yes\">\n        <text>Upload any of your certificates?</text>\n        <description>You can upload multiple (.pdf)</description>\n        <file_properties format=\".pdf\" max_file_size=\"3\" max_file_size_unit=\"mb\" multiple=\"yes\"/>\n    </question>\n</questions>"
+				}
+			]
+		},
+		{
+			"name": "responses",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/api/questions/responses/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"questions",
+						"responses",
+						""
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "PUT",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "full_name",
+									"value": "Mary Jane Doe",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "janedoe@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "I am an experienced FrontEnd Engineer with over 6 years experience.",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "FEMALE",
+									"type": "text"
+								},
+								{
+									"key": "programming_stack",
+									"value": "REACT,VUE,PHP,,Flutter",
+									"type": "text"
+								},
+								{
+									"key": "certificates",
+									"type": "file",
+									"src": "/C:/Users/OscarNgombo/Downloads/OSCAR CV LATEST DA.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://13tracso.pythonanywhere.com/api/questions/responses/",
+							"protocol": "https",
+							"host": [
+								"13tracso",
+								"pythonanywhere",
+								"com"
+							],
+							"path": [
+								"api",
+								"questions",
+								"responses",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "xml",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 07 Apr 2025 08:06:47 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.2"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/xml"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "PUT, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "358"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "<?xml version=\"1.0\" ?>\n<question_response>\n    <full_name>Jane Doe</full_name>\n    <gender>MALE</gender>\n    <programming_stack>REACT</programming_stack>\n    <programming_stack>VUE</programming_stack>\n    <certificates>\n        <certificate>OSCAR CV LATEST DA.pdf</certificate>\n    </certificates>\n    <date_responded>2025-04-07 08:06:47</date_responded>\n</question_response>"
+				},
+				{
+					"name": "GET",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "https://13tracso.pythonanywhere.com/api/questions/responses/",
+							"protocol": "https",
+							"host": [
+								"13tracso",
+								"pythonanywhere",
+								"com"
+							],
+							"path": [
+								"api",
+								"questions",
+								"responses",
+								""
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "xml",
+					"header": [
+						{
+							"key": "Date",
+							"value": "Mon, 07 Apr 2025 08:23:55 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "WSGIServer/0.2 CPython/3.13.2"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/xml"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept, Cookie"
+						},
+						{
+							"key": "Allow",
+							"value": "GET, HEAD, OPTIONS"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Length",
+							"value": "1054"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "Referrer-Policy",
+							"value": "same-origin"
+						},
+						{
+							"key": "Cross-Origin-Opener-Policy",
+							"value": "same-origin"
+						}
+					],
+					"cookie": [],
+					"body": "<?xml version=\"1.0\" ?>\n<question_responses current_page=\"1\" last_page=\"1\" page_size=\"10\" total_count=\"3\">\n    <question_response>\n        <response_id>2</response_id>\n        <full_name>Oscar Ngombo</full_name>\n        <gender>1</gender>\n        <certificates/>\n        <date_responded>2025-04-05 08:40:04</date_responded>\n    </question_response>\n    <question_response>\n        <response_id>3</response_id>\n        <full_name>Jane Doe</full_name>\n        <gender>MALE</gender>\n        <programming_stack>REACT</programming_stack>\n        <programming_stack>VUE</programming_stack>\n        <certificates/>\n        <date_responded>2025-04-07 08:06:13</date_responded>\n    </question_response>\n    <question_response>\n        <response_id>4</response_id>\n        <full_name>Jane Doe</full_name>\n        <gender>MALE</gender>\n        <programming_stack>REACT</programming_stack>\n        <programming_stack>VUE</programming_stack>\n        <certificates>\n            <certificate id=\"1\">OSCAR CV LATEST DA.pdf</certificate>\n        </certificates>\n        <date_responded>2025-04-07 08:06:47</date_responded>\n    </question_response>\n</question_responses>"
+				}
+			]
+		},
+		{
+			"name": "Certificates",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://13tracso.pythonanywhere.com/api/questions/responses/certificates/3",
+					"protocol": "https",
+					"host": [
+						"13tracso",
+						"pythonanywhere",
+						"com"
+					],
+					"path": [
+						"api",
+						"questions",
+						"responses",
+						"certificates",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

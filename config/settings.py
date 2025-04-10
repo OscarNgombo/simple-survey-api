@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-w78ie%%_uqc+gftmt7yk1j1p0j2oe4h^%_4f#xibq_weg6$5g)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["13tracso.pythonanywhere.com"]
-
+ALLOWED_HOSTS = []
+# "13tracso.pythonanywhere.com"
 
 # Application definition
 
@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': '13tracso$sky_survey_db',
-        'USER': '13tracso',
-        'PASSWORD': 'Tinga2025',
-        'HOST': '13tracso.mysql.pythonanywhere-services.com',
+        'NAME': 'sky_survey_db',
+        'USER': 'root',
+        'PASSWORD': '0284',
+        'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",  # or use 'STRICT_ALL_TABLES'
