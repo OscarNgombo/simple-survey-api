@@ -75,6 +75,47 @@ class SubmitResponse(APIView):
         ET.SubElement(root, "date_responded").text = response.date_responded.strftime("%Y-%m-%d %H:%M:%S")
 
         return HttpResponse(build_xml_response(root), content_type="application/xml")
+    
+    def get(self, request, *args, **kwargs):
+        email_address = request.query_params.get('email_address')
+        responses = Response.objects.filter(
+            respondent_id__in=ResponseDetail.objects.filter(
+                question_id__name='email_address', answer__icontains=email_address
+            ).values_list('response_id', flat=True)
+        ) if email_address else Response.objects.all()
+
+        page_size = int(request.query_params.get('page_size', 10))
+        page_number = request.query_params.get('page', 1)
+        paginator = Paginator(responses, page_size)
+
+        try:
+            current_page_responses = paginator.page(page_number)
+        except (PageNotAnInteger, EmptyPage):
+            current_page_responses = paginator.page(1)
+
+        root = ET.Element("question_responses", {
+            "current_page": str(current_page_responses.number),
+            "last_page": str(paginator.num_pages),
+            "page_size": str(page_size),
+            "total_count": str(paginator.count)
+        })
+
+        for response in current_page_responses:
+            response_element = ET.SubElement(root, "question_response")
+            ET.SubElement(response_element, "response_id").text = str(response.respondent_id)
+
+            for detail in ResponseDetail.objects.filter(response_id=response):
+                ET.SubElement(response_element, detail.question_id.name).text = detail.answer
+
+            certificates_element = ET.SubElement(response_element, "certificates")
+            for certificate in Certificate.objects.filter(respondent_id=response):
+                ET.SubElement(certificates_element, "certificate", {
+                    "id": str(certificate.certificate_id)
+                }).text = certificate.name
+
+            ET.SubElement(response_element, "date_responded").text = response.date_responded.strftime("%Y-%m-%d %H:%M:%S")
+
+        return HttpResponse(build_xml_response(root), content_type="application/xml")
 
 
 class CertificateDownloadView(APIView):
@@ -123,46 +164,3 @@ def get_survey_questions_xml(request):
             })
 
     return HttpResponse(build_xml_response(root), content_type="application/xml")
-
-
-class GetResponses(APIView):
-    def get(self, request, *args, **kwargs):
-        email_address = request.query_params.get('email_address')
-        responses = Response.objects.filter(
-            respondent_id__in=ResponseDetail.objects.filter(
-                question_id__name='email_address', answer__icontains=email_address
-            ).values_list('response_id', flat=True)
-        ) if email_address else Response.objects.all()
-
-        page_size = int(request.query_params.get('page_size', 10))
-        page_number = request.query_params.get('page', 1)
-        paginator = Paginator(responses, page_size)
-
-        try:
-            current_page_responses = paginator.page(page_number)
-        except (PageNotAnInteger, EmptyPage):
-            current_page_responses = paginator.page(1)
-
-        root = ET.Element("question_responses", {
-            "current_page": str(current_page_responses.number),
-            "last_page": str(paginator.num_pages),
-            "page_size": str(page_size),
-            "total_count": str(paginator.count)
-        })
-
-        for response in current_page_responses:
-            response_element = ET.SubElement(root, "question_response")
-            ET.SubElement(response_element, "response_id").text = str(response.respondent_id)
-
-            for detail in ResponseDetail.objects.filter(response_id=response):
-                ET.SubElement(response_element, detail.question_id.name).text = detail.answer
-
-            certificates_element = ET.SubElement(response_element, "certificates")
-            for certificate in Certificate.objects.filter(respondent_id=response):
-                ET.SubElement(certificates_element, "certificate", {
-                    "id": str(certificate.certificate_id)
-                }).text = certificate.name
-
-            ET.SubElement(response_element, "date_responded").text = response.date_responded.strftime("%Y-%m-%d %H:%M:%S")
-
-        return HttpResponse(build_xml_response(root), content_type="application/xml")

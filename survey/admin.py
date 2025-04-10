@@ -10,7 +10,7 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter = ('type', 'required')
     search_fields = ('text', 'name')
     ordering = ('name',)
-    inlines = [OptionInline]  #  Add the inline options
+    inlines = [OptionInline]
 
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Option)

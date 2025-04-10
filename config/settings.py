@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-w78ie%%_uqc+gftmt7yk1j1p0j2oe4h^%_4f#xibq_weg6$5g)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["13tracso.pythonanywhere.com"]
 
 
 # Application definition
@@ -78,11 +78,14 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sky_survey_db',
-        'USER': 'root',
-        'PASSWORD': '0284',
-        'HOST': '127.0.0.1',
+        'NAME': '13tracso$sky_survey_db',
+        'USER': '13tracso',
+        'PASSWORD': 'Tinga2025',
+        'HOST': '13tracso.mysql.pythonanywhere-services.com',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",  # or use 'STRICT_ALL_TABLES'
+        },
     }
 }
 
@@ -130,3 +133,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# Assuming BASE_DIR is defined as follows:
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Set STATIC_ROOT
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
