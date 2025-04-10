@@ -6,10 +6,10 @@ A Django REST Framework application for creating and managing simple surveys.
 
 The following project artifacts are included to aid understanding and setup:
 
-1.  **ERD Diagram:** (`docs/ERD Diagram.pdf`) - Visual representation of the database schema.
-2.  **Database SQL File:** (`docs/sky_world_db.sql`) - SQL script to set up the database schema or initial data.
+1.  **ERD Diagram:** (`./docs/ERD Diagram.pdf`) - Visual representation of the database schema.
+2.  **Database SQL File:** (`./docs/sky_world_db.sql`) - SQL script to set up the database schema or initial data.
 3.  **REST API Code:** (This repository) - The source code for the Django application.
-4.  **Postman Collection:** (`docs/survey_api.postman_collection.json`) - A collection of pre-built requests to test the API endpoints using Postman.
+4.  **Postman Collection:** (`./docs/survey_api.postman_collection.json`) - A collection of pre-built requests to test the API endpoints using Postman.
 
 ## Prerequisites
 
@@ -56,9 +56,9 @@ Follow these steps to set up and run the application on your local machine:
         CREATE DATABASE sky_survey_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
         ```
     *   **Important Security Note:** The `settings.py` file currently contains hardcoded database credentials (`root`/`0284`). This is **not recommended** for security reasons, especially if sharing the code. Consider using environment variables or a local settings file (`local_settings.py`) excluded from Git to manage sensitive information. For this local setup guide, we'll assume the credentials in `settings.py` are intended for local development.
-    *   *Optional:* If you have a `database.sql` file for schema setup (beyond migrations) or initial data, you can import it:
+    *   *Optional:* If you have a `sky_world_db.sql` file for schema setup (beyond migrations) or initial data, you can import it:
         ```bash
-        mysql -u root -p sky_survey_db < path/to/your/database.sql
+        mysql -u root -p sky_survey_db < path/to/your/sky_world_db.sql
         ```
         (You will be prompted for the password '0284').
 
@@ -95,7 +95,7 @@ This section outlines the general steps taken to deploy the backend API to Pytho
     *   Open a **Bash Console** on PythonAnywhere.
     *   Clone your repository:
         ```bash
-        git clone <your-repository-url>
+        git clone https://github.com/OscarNgombo/simple-survey-api.git
         cd simple-survey-api
         ```
     *   *(Alternative)*: Upload your project code as a zip file and extract it.
